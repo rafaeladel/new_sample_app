@@ -13,6 +13,8 @@ class SignupTest < ActionDispatch::IntegrationTest
       post users_path, user: { name: '', email: 'rafael@dw.com', password: '123', password_confirmation: '213' }
     end
     assert_template 'users/new'
+
+    assert_select "#error_explanation li.error_element"
   end
 
   test 'successful signup' do
@@ -21,6 +23,7 @@ class SignupTest < ActionDispatch::IntegrationTest
       post_via_redirect users_path, user: { name: 'fofo', email: 'fofo@fofo.com', password: 'fofopassword', password_confirmation: 'fofopassword' }
     end
     assert_template 'users/show'
+    assert_not flash.nil?
   end
 
 end
