@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  self.per_page = 10
+  # self.per_page = 10
 
   def self.digest(pw)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
