@@ -18,6 +18,13 @@ class UserEditTest < ActionDispatch::IntegrationTest
     assert_template 'users/edit'
   end
 
+  test "friendly forward" do
+    get edit_user_url(@user)
+    assert_redirected_to login_url
+    log_in_as @user
+    assert_redirected_to edit_user_url(@user)
+  end
+
   test "successful edit" do
     log_in_as @user
     get edit_user_path(@user)
