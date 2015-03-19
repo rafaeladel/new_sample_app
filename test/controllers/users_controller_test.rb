@@ -70,5 +70,16 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to users_url
   end
 
+  test "cannot edit admin property" do
+    log_in_as @other_user
+    assert_not @other_user.admin?
+    name = "toto"
+    email = "dwdw@dwdw.com"
+    patch :update, id: @other_user, user: { admin: true }
+    assert_not flash.empty?
+    assert_redirected_to @other_user
+    assert_not @other_user.reload.admin?
+  end
+
 
 end

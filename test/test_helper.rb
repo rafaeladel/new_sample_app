@@ -25,6 +25,15 @@ class ActiveSupport::TestCase
     end
   end
 
+  def log_out_user
+    if integration_test?
+      delete logout_path
+    else
+      session.delete(:user_id)
+      cookies.delete(:user_id)
+      cookies.delete(:remember_token)
+    end
+  end
 
   def is_logged_in?
     !session[:user_id].nil?
