@@ -14,20 +14,20 @@
 ActiveRecord::Schema.define(version: 20150319170507) do
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.string   "password_digest"
-    t.string   "remember_digest"
-    t.boolean  "admin",             default: false
-    t.boolean  "activated"
-    t.string   "activation_digest"
+    t.string   "name",              limit: 255
+    t.string   "email",             limit: 255
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "password_digest",   limit: 255
+    t.string   "remember_digest",   limit: 255
+    t.boolean  "admin",             limit: 1,   default: false
+    t.boolean  "activated",         limit: 1
+    t.string   "activation_digest", limit: 255
     t.datetime "activated_at"
-    t.string   "reset_digest"
+    t.string   "reset_digest",      limit: 255
     t.datetime "reset_sent_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
 end
