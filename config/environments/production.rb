@@ -1,4 +1,18 @@
 Rails.application.configure do
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  host = "ancient-atoll-7184.herokuapp.com"
+  config.aciton_mailer.default_url_options = { host: host}
+  ActionMailer::Base.smtp_settings = {
+      :address        => 'smtp.mandrillapp.com',
+      :port           => '587',
+      :authentication => :plain,
+      :user_name      => "rafael@thesevenlayers.net",
+      :password       => "ukcA81a9tAjo-VcSqJkJFg",
+      :domain         => 'mandrillapp.com',
+      :enable_starttls_auto => true
+  }
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
