@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessor :remember_token, :activation_token, :reset_token
+  has_many :microposts, dependent: :destroy
 
   before_save :downcase_email
   before_create :generate_activation_token
@@ -11,8 +12,6 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, allow_blank: true
 
   has_secure_password
-
-  self.per_page = 10
 
   def self.digest(pw)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
@@ -58,6 +57,10 @@ class User < ActiveRecord::Base
 
   def password_reset_expired?
     self.reset_sent_at < 2.hours.ago
+  end
+
+  def feed
+    Micropost.where("user_id = ?", id)
   end
 
   private

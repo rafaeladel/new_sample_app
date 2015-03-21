@@ -64,4 +64,12 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test "user deleting deletes related microposts" do
+    @user.save
+    @user.microposts.create!(content: "ttdwdw dwd")
+    assert_difference "Micropost.count", -1 do
+      @user.destroy
+    end
+  end
+
 end
