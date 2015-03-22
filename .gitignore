@@ -11,4 +11,4 @@
 /tmp
 /.idea
 
-/public/uploads
+/public/uploads/*
